@@ -73,5 +73,6 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     public interface OnItemClick {
         void btnMoreClicked(int position);
+        void itemClicked(int position);
     }
 }

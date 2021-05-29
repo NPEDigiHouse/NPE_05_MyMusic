@@ -116,21 +116,27 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 .child("User")
                 .child(mUser.getUid())
                 .child("song_list");
-        mySongRef.addValueEventListener(new ValueEventListener() {
+        mySongRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot data : snapshot.getChildren()) {
-                    // update list
-                    SongsModel songsModel = new SongsModel(
-                            data.child("title").getValue().toString(),
-                            data.child("artist").getValue().toString(),
-                            data.child("genre").getValue().toString(),
-                            data.child("song_url").getValue().toString(),
-                            data.child("cover_url").getValue().toString()
-                    );
-                    songList.add(songsModel);
+                if (snapshot.exists()) {
+                    String defaultSong = "https://firebasestorage.googleapis.com/v0/b/my-music-e4bf3.appspot.com/o/songs%2FBroken%20Arrow%20-%20Avicii%2Faudio?alt=media&token=7e758d81-669d-4dfc-a36e-6f23c5d31a30";
+                    String defaultCover = "https://firebasestorage.googleapis.com/v0/b/my-music-e4bf3.appspot.com/o/songs%2FBroken%20Arrow%20-%20Avicii%2Fcover?alt=media&token=9c6f4963-8cf8-4f69-b9f5-0602c66215b8";
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        // update list
+                        SongsModel songsModel = new SongsModel(
+                                data.child("title").getValue().toString(),
+                                data.child("artist").getValue().toString(),
+                                data.child("genre").getValue().toString(),
+                                data.child("song_url").exists() ? data.child("song_url").getValue().toString() : defaultSong,
+                                data.child("cover_url").exists() ? data.child("cover_url").getValue().toString() : defaultCover
+                        );
+                        songList.add(songsModel);
+                    }
+                    songsAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Kamu belum menambahkan lagu.", Toast.LENGTH_SHORT).show();
                 }
-                songsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -144,5 +150,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void btnMoreClicked(int position) {
         Toast.makeText(this, songList.get(position).getTitle() + " btn more clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void itemClicked(int position) {
+
     }
 }
