@@ -28,21 +28,20 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         btnGoogle.setOnClickListener(this);
         tvMasuk.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_masuk:
-                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                Intent i = new Intent(WelcomeActivity.this, LoginActivity.class);
+                startActivity(i);
                 break;
             case R.id.btn_noemail:
-
                 break;
             case R.id.btn_nohp:
-
                 break;
             case R.id.btn_daftar:
-                startActivity(new Intent(WelcomeActivity.this, RegisterActivity.class));
+                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                startActivity(intent);
                 break;
         }
     }

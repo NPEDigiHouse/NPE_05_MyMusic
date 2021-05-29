@@ -159,7 +159,7 @@
                 android:shadowDx="3"
                 android:shadowColor="@color/mBlackSmooth"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
