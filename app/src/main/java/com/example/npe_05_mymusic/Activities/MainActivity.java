@@ -41,18 +41,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onStart() {
         super.onStart();
 
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user == null){
-                    startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
-                    finish();
-                }
-            }
-        };
-
-        mAuth.addAuthStateListener(mAuthStateListener);
         fragmentMap.put(R.id.menu_item_home, HomeFragment.newInstance());
         fragmentMap.put(R.id.menu_item_search, SearchFragment.newInstance());
         fragmentMap.put(R.id.menu_item_favorite, FavoriteFragment.newInstance());

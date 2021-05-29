@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import androidx.annotation.Nullable;
 
+import com.example.npe_05_mymusic.Activities.LoginActivity;
 import com.example.npe_05_mymusic.Activities.MainActivity;
 import com.example.npe_05_mymusic.Activities.WelcomeActivity;
 import com.example.npe_05_mymusic.R;
@@ -21,7 +22,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 Intent intent;
-                intent = new Intent(SplashScreen.this, MainActivity.class);
+                intent = new Intent(SplashScreen.this, WelcomeActivity.class);
                 startActivity(intent);
                 finish();
             }},2000);

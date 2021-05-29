@@ -50,7 +50,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         classID = getIntent().getIntExtra("CLASS_ID", 0);
         childID = getIntent().getStringExtra("CHILD_ID");
         switch (classID) {
-            case 102:
+            case 101:
                 reference.child("Song_List").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
