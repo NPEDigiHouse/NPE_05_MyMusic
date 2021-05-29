@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.npe_05_mymusic.R;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -51,6 +53,8 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner spinGenre;
     private DatabaseReference dbReference;
     private String name, artist, song_url, cover_url;
+    private Map<String, Object> map = new HashMap<>();
+    private TextView tvURLCover, tvURLAudio;
 
     private final int PICK_IMAGE_REQUEST = 22;
     private final int PICK_AUDIO_REQUEST = 33;
@@ -61,6 +65,8 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +81,11 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
         etTitle = findViewById(R.id.et_song_title);
         etArtist = findViewById(R.id.et_song_artist);
         tvGenre = findViewById(R.id.tv_genre);
+        tvURLAudio = findViewById(R.id.tvURLAudio);
+        tvURLCover = findViewById(R.id.tvURLCover);
 
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         dbReference = FirebaseDatabase.getInstance().getReference();
@@ -102,7 +112,7 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 uploadData();
-                deployToDB();
+
             }
         });
     }
@@ -182,6 +192,9 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
                         @Override
                         public void onSuccess(Uri uri) {
                             cover_url = uri.toString();
+
+                            tvURLCover.setText(cover_url);
+                            map.put("cover_url", uri.toString());
                             Toast.makeText(UploadActivity.this, cover_url, Toast.LENGTH_SHORT).show();
                             Log.d("URL", cover_url);
                         }
@@ -222,6 +235,9 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
                         @Override
                         public void onSuccess(Uri uri) {
                             song_url = uri.toString();
+
+                            tvURLAudio.setText(song_url);
+                            map.put("song_url", uri.toString());
                             Log.d("URL", song_url);
                         }
                     });
@@ -249,18 +265,21 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
         }
 
 
+        deployToDB();
     }
 
     private void deployToDB() {
+        name = etTitle.getText().toString();
+        artist = etArtist.getText().toString();
 
-        Map<String, Object> map = new HashMap<>();
+
         map.put("title", etTitle.getText().toString());
         map.put("artist", etArtist.getText().toString());
         map.put("genre", tvGenre.getText().toString());
-        map.put("song_url", song_url);
-        map.put("cover_url", cover_url);
+        map.put("song_url", tvURLAudio.getText().toString());
+        map.put("cover_url", tvURLCover.getText().toString());
 
-        dbReference.child(FirebaseAuth.getInstance().getUid()).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+        dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(UploadActivity.this, "Berhasil deploy ke DB", Toast.LENGTH_SHORT).show();
