@@ -100,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Toast.makeText(RegisterActivity.this, "success register", Toast.LENGTH_LONG).show();
                                                 etEmail.setText("");
                                                 etName.setText("");
-                                                etPassword.setTex
+                                                etPassword.setText("");
 
                                                 // go to main
                                                 Intent goToMain = new Intent(RegisterActivity.this, MainActivity.class);
