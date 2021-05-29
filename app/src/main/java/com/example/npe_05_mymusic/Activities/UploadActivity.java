@@ -46,15 +46,15 @@ import java.util.Map;
 
 public class UploadActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private Button btnUpload, btnDeploy;
-    private ConstraintLayout btnUploadImg, btnUploadSong;
+    private ConstraintLayout btnUploadImg, btnUploadSong, btnPlaySong;
     private EditText etTitle, etArtist, etGenre;
-    private ImageView ivCover, btnPlaySong;
+    private ImageView ivCover, ivPlay;
     private AutoCompleteTextView tvGenre;
     private Spinner spinGenre;
     private DatabaseReference dbReference;
     private String name, artist, song_url, cover_url;
     private Map<String, Object> map = new HashMap<>();
-    private TextView tvURLCover, tvURLAudio;
+    private TextView tvURLCover, tvURLAudio, tvPlay;
 
     private final int PICK_IMAGE_REQUEST = 22;
     private final int PICK_AUDIO_REQUEST = 33;
@@ -75,14 +75,18 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         btnUpload = findViewById(R.id.btn_upload);
-        btnUploadImg = findViewById(R.id.tombol_gambar);
-        btnUploadSong = findViewById(R.id.cv_lagu);
-        btnPlaySong = findViewById(R.id.icon_song);
+        btnUploadSong = findViewById(R.id.tombol_lagu);
+        btnUploadImg = findViewById(R.id.cv_gambar);
+        btnPlaySong = findViewById(R.id.cv_play);
         etTitle = findViewById(R.id.et_song_title);
         etArtist = findViewById(R.id.et_song_artist);
+        ivCover = findViewById(R.id.iv_change_image);
         tvGenre = findViewById(R.id.tv_genre);
+        ivPlay = findViewById(R.id.iv_play_song);
         tvURLAudio = findViewById(R.id.tvURLAudio);
         tvURLCover = findViewById(R.id.tvURLCover);
+        tvPlay = findViewById(R.id.tv_play);
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -167,6 +171,22 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
             audioFilePath = data.getData();
 
             Uri uriData = Uri.parse(String.valueOf(audioFilePath));
+            MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), uriData);
+            btnPlaySong.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onClick(View v) {
+                    if (tvPlay.getText().toString().equalsIgnoreCase("play")) {
+                        ivPlay.setImageResource(R.drawable.ic_baseline_pause_circle_outline_24);
+                        tvPlay.setText("pause");
+                        mediaPlayer.start();
+                    } else if (tvPlay.getText().toString().equalsIgnoreCase("pause")) {
+                        ivPlay.setImageResource(R.drawable.ic_baseline_play_circle_outline_24);
+                        tvPlay.setText("play");
+                        mediaPlayer.pause();
+                    }
+                }
+            });
             Log.d("PATH", String.valueOf(uriData));
         }
     }
@@ -236,8 +256,8 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
                         public void onSuccess(Uri uri) {
                             song_url = uri.toString();
 
-                            tvURLAudio.setText(song_url);
                             map.put("song_url", uri.toString());
+                            tvURLAudio.setText(song_url);
                             Log.d("URL", song_url);
                         }
                     });
