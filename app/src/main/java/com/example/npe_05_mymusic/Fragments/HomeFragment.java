@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         tvName = (TextView) view.findViewById(R.id.tv_name);
         reference = FirebaseDatabase.getInstance().getReference("User");
         mAuth = FirebaseAuth.getInstance();
+        btnLogout.setOnClickListener(this);
 
         reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
