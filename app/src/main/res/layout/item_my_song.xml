@@ -64,7 +64,7 @@
         android:layout_height="30dp"
         android:textColor="@color/mTransparent"
         android:backgroundTint="@color/white"
-        android:background="@drawable/ic_baseline_more_vert_24"
+        android:background="@drawable/ic_baseline_restore_from_trash_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

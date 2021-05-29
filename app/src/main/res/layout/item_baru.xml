@@ -17,7 +17,7 @@
 
         android:elevation="4dp">
         <ImageView
-            android:id="@+id/iv_song"
+            android:id="@+id/iv_artis_eksplorasi"
             android:layout_height="40dp"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
@@ -36,7 +36,7 @@
         android:layout_marginRight="10dp"
         app:layout_constraintEnd_toEndOf="parent">
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_eksplorasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Naruto"
@@ -49,7 +49,7 @@
             android:textSize="16dp"
             />
         <TextView
-            android:id="@+id/tv_artis"
+            android:id="@+id/tv_artis_eksplorasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="13dp"

@@ -17,61 +17,59 @@ import com.example.npe_05_mymusic.R;
 
 import java.util.List;
 
-public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> {
+public class RekomendasiAdapter extends RecyclerView.Adapter<RekomendasiAdapter.ViewHolder> {
     private OnItemClick onItemClick;
-    private List<SongsModel> songsModelList;
+    private List<SongsModel> rekomendasiList;
 
-    public SongsAdapter(OnItemClick onItemClick, List<SongsModel> songsModelList) {
+    public RekomendasiAdapter(List<SongsModel> rekomendasiList, OnItemClick onItemClick) {
         this.onItemClick = onItemClick;
-        this.songsModelList = songsModelList;
+        this.rekomendasiList = rekomendasiList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_my_song, parent, false);
+                .inflate(R.layout.item_rekomendasi, parent, false);
         return new ViewHolder(view, onItemClick );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SongsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RekomendasiAdapter.ViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext())
-                .load(songsModelList.get(position).getCover_url())
+                .load(rekomendasiList.get(position).getCover_url())
                 .into(holder.ivImage);
-        holder.tvTitle.setText(songsModelList.get(position).getTitle());
-        holder.tvArtist.setText(songsModelList.get(position).getArtist());
+        holder.tvTitle.setText(rekomendasiList.get(position).getTitle());
+        holder.tvArtist.setText(rekomendasiList.get(position).getArtist());
     }
 
     @Override
     public int getItemCount() {
-        return songsModelList.size();
+        return rekomendasiList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         OnItemClick onItemClick;
         ImageView ivImage;
         TextView tvTitle, tvArtist;
-        ImageButton btnMore;
 
         public ViewHolder(@NonNull View itemView, OnItemClick onItemClick) {
             super(itemView);
             this.onItemClick = onItemClick;
-
-            ivImage = itemView.findViewById(R.id.iv_image_item_my_song);
-            tvTitle = itemView.findViewById(R.id.tv_title_item_my_song);
-            tvArtist = itemView.findViewById(R.id.tv_artist_item_my_song);
-            btnMore = itemView.findViewById(R.id.ib_more_item_my_song);
-            btnMore.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClick.btnDeleteCLicked(getAdapterPosition());
+                    onItemClick.itemRekomendasiClicked(getAdapterPosition());
                 }
             });
+
+            ivImage = itemView.findViewById(R.id.iv_artis_rekomendasi);
+            tvTitle = itemView.findViewById(R.id.tv_title_rekomendasi);
+            tvArtist = itemView.findViewById(R.id.tv_artis_rekomendasi);
         }
     }
 
     public interface OnItemClick {
-        void btnDeleteCLicked(int position);
+        void itemRekomendasiClicked(int position);
     }
 }

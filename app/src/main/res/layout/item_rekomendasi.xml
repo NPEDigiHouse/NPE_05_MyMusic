@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:elevation="4dp">
         <ImageView
-            android:id="@+id/iv_artis"
+            android:id="@+id/iv_artis_rekomendasi"
             android:layout_height="60dp"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
@@ -34,7 +34,7 @@
         android:layout_marginRight="10dp"
         app:layout_constraintEnd_toStartOf="@id/tb_fav">
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_rekomendasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Naruto"
@@ -47,7 +47,7 @@
             android:textSize="15dp"
             />
         <TextView
-            android:id="@+id/tv_artis"
+            android:id="@+id/tv_artis_rekomendasi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="11dp"
