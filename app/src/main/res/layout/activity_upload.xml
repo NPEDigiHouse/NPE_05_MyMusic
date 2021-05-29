@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             >
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cv_lagu"
+                android:id="@+id/cv_gambar"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
                 android:layout_height="140dp"
@@ -90,34 +90,59 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/tombol_gambar"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/background_button"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/u_tv3"
-                    android:textSize="18dp"
-                    android:textColor="@color/mBlackSmooth"
-                    android:fontFamily="@font/poppins_regular"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginLeft="20dp"/>
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/ic_baseline_camera_alt_24"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginRight="14dp"
-                    app:tint="@color/mBlackSmooth" />
+                android:orientation="horizontal">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tombol_lagu"
+                    android:layout_width="290dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/background_button"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/u_tv3"
+                        android:textSize="18dp"
+                        android:textColor="@color/mBlackSmooth"
+                        android:fontFamily="@font/poppins_regular"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginLeft="20dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cv_play"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_play"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="play"/>
+
+                    <ImageView
+                        android:id="@+id/iv_play_song"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:src="@drawable/ic_baseline_play_circle_outline_24"
+                        app:tint="@color/mBlackSmooth" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
             <EditText
                 android:id="@+id/et_song_title"
                 android:layout_width="match_parent"
@@ -154,7 +179,9 @@
                 android:hint="Genre">
                 <AutoCompleteTextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+
+                    android:background="@null"
+                    android:layout_height="match_parent"
                     android:textSize="18dp"
                     android:id="@+id/tv_genre"
                     android:fontFamily="@font/poppins_regular"
