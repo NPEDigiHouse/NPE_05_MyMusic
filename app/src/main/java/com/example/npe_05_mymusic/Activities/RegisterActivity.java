@@ -2,6 +2,7 @@ package com.example.npe_05_mymusic.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.npe_05_mymusic.Models.User;
@@ -100,6 +101,11 @@ public class RegisterActivity extends AppCompatActivity {
                                                 etEmail.setText("");
                                                 etName.setText("");
                                                 etPassword.setText("");
+
+                                                // go to main
+                                                Intent goToMain = new Intent(RegisterActivity.this, MainActivity.class);
+                                                startActivity(goToMain);
+                                                finishAffinity();
                                             }
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
