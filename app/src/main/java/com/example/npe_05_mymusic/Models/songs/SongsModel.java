@@ -1,4 +1,4 @@
-package com.example.npe_05_mymusic.models.songs;
+package com.example.npe_05_mymusic.Models.songs;
 
 public class SongsModel {
     private String title, artist, genre, song_url, cover_url;
