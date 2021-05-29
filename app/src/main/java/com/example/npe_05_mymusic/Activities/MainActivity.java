@@ -10,29 +10,30 @@ import android.view.MenuItem;
 
 import com.example.npe_05_mymusic.Fragments.FavoriteFragment;
 import com.example.npe_05_mymusic.Fragments.HomeFragment;
-import com.example.npe_05_mymusic.Fragments.ProfileFragment;
 import com.example.npe_05_mymusic.Fragments.SearchFragment;
 import com.example.npe_05_mymusic.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private FirebaseUser user;
+    private BottomNavigationView bottomNavigationView;
+    private Map<Integer, Fragment> fragmentMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView( R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frame_main, new HomeFragment()).commit();
-        }
+        bottomNavigationView = findViewById(R.id.bn_main);
+        fragmentMap = new HashMap<>();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -49,31 +50,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
+        fragmentMap.put(R.id.menu_item_home, HomeFragment.newInstance());
+        fragmentMap.put(R.id.menu_item_search, SearchFragment.newInstance());
+        fragmentMap.put(R.id.menu_item_favorite, FavoriteFragment.newInstance());
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.menu_item_home);
     }
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment selectedFragment = null;
-                    switch (item.getItemId()) {
-                        case R.id.menu_item_search:
-                            selectedFragment = new SearchFragment();
-                            break;
-                        case R.id.menu_item_favorite:
-                            selectedFragment = new FavoriteFragment();
-                            break;
-                        case R.id.menu_item_profile:
-                            selectedFragment = new ProfileFragment();
-                            break;
-                        case R.id.menu_item_home:
-                            selectedFragment = new HomeFragment();
-                            break;
-                    }
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frame_main,
-                            selectedFragment).commit();
-                    return true;
-                }
-            };
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.menu_item_profile){
+            Intent i = new Intent(MainActivity.this, ProfileActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            return true;
+        }
+        Fragment fragment = fragmentMap.get(item.getItemId());
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_main, fragment)
+                .commit();
+        return true;
+    }
 }

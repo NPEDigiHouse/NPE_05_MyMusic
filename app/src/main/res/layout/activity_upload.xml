@@ -142,28 +142,26 @@
                 android:textSize="18dp"
                 android:layout_marginTop="20dp"
                 />
-
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_gravity="center_horizontal"
-                app:hintTextColor="@color/mBlackSmooth"
-                app:boxBackgroundMode="outline"
                 android:textColorHint="@color/mBlackSmooth"
                 android:background="@drawable/background_button"
+                app:hintTextColor="@color/mBlackSmooth"
                 android:hint="Genre">
                 <AutoCompleteTextView
-                    android:id="@+id/tv_genre"
-                    android:fontFamily="@font/poppins_regular"
                     android:layout_width="match_parent"
-                    android:background="@null"
                     android:layout_height="wrap_content"
                     android:textSize="18dp"
-                    android:inputType="none"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:id="@+id/tv_genre"
+                    android:fontFamily="@font/poppins_regular"
+                    android:inputType="none"
+                    />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btn_upload"
