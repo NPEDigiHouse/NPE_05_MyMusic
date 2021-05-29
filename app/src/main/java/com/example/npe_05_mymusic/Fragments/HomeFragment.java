@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.npe_05_mymusic.Activities.LoginActivity;
 import com.example.npe_05_mymusic.Activities.MainActivity;
+import com.example.npe_05_mymusic.Activities.MusicPlayerActivity;
 import com.example.npe_05_mymusic.Activities.ProfileActivity;
 import com.example.npe_05_mymusic.Adapaters.EksplorasiAdapter;
 import com.example.npe_05_mymusic.Adapaters.RekomendasiAdapter;
@@ -203,11 +204,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Reko
 
     @Override
     public void itemEksplorasiClicked(int position) {
-        Toast.makeText(getActivity(), eksplorasiList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+//        Intent goToMusicPlayer = new Intent(getActivity(), MusicPlayerActivity.class);
+//        goToMusicPlayer.putExtra("CLASS_ID", 101);
+//        startActivity(goToMusicPlayer);
     }
 
     @Override
     public void itemRekomendasiClicked(int position) {
-        Toast.makeText(getActivity(), rekomendasiList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+        Intent goToMusicPlayer = new Intent(getActivity(), MusicPlayerActivity.class);
+        goToMusicPlayer.putExtra("CLASS_ID", 101);
+        startActivity(goToMusicPlayer);
     }
 }

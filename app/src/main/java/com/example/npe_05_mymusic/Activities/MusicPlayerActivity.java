@@ -51,26 +51,7 @@ public class MusicPlayerActivity extends AppCompatActivity {
         childID = getIntent().getStringExtra("CHILD_ID");
         switch (classID) {
             case 101:
-                reference.child("User").child(mUser.getUid()).child("song_list").child(childID).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        SongsModel model = snapshot.getValue(SongsModel.class);
-
-                        songsURL = model.getSong_url();
-
-                        Glide.with(MusicPlayerActivity.this).load(model.getCover_url()).into(ivCover);
-                        tvTitle.setText(model.getTitle());
-                        tvArtist.setText(model.getArtist());
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-                break;
-            case 102:
-                reference.child("Song_List").child(childID).addValueEventListener(new ValueEventListener() {
+                reference.child("Song_List").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         SongsModel model = snapshot.getValue(SongsModel.class);
