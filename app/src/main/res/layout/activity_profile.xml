@@ -59,7 +59,7 @@
             app:layout_constraintTop_toTopOf="@id/civ_profile"
             app:layout_constraintStart_toEndOf="@id/civ_profile"
             android:layout_marginLeft="10dp"
-            android:textSize="23dp"/>
+            android:textSize="20dp"/>
         <ImageView
             android:id="@+id/iv_disc"
             android:layout_width="20dp"
@@ -124,7 +124,7 @@
                 android:fontFamily="@font/poppins_bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textSize="23dp" />
+                android:textSize="18dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_all_song"
@@ -159,7 +159,7 @@
                 android:shadowDx="3"
                 android:shadowColor="@color/mBlackSmooth"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
