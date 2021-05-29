@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:elevation="4dp">
         <ImageView
-            android:id="@+id/iv_artis"
+            android:id="@+id/iv_image_item_my_song"
             android:layout_height="60dp"
             android:layout_width="match_parent"
             android:scaleType="centerCrop"
@@ -32,9 +32,9 @@
         app:layout_constraintStart_toEndOf="@id/cv_artis"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toStartOf="@id/ib_more">
+        app:layout_constraintEnd_toStartOf="@id/ib_more_item_my_song">
         <TextView
-            android:id="@+id/tv_title"
+            android:id="@+id/tv_title_item_my_song"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Naruto"
@@ -47,7 +47,7 @@
             android:textSize="15dp"
             />
         <TextView
-            android:id="@+id/tv_artis"
+            android:id="@+id/tv_artist_item_my_song"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="11dp"
@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/ib_more"
+        android:id="@+id/ib_more_item_my_song"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:textColor="@color/mTransparent"
