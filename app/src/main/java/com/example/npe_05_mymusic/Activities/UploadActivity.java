@@ -33,8 +33,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -213,9 +216,17 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
                         public void onSuccess(Uri uri) {
                             cover_url = uri.toString();
 
-                            tvURLCover.setText(cover_url);
-                            map.put("cover_url", uri.toString());
-                            Toast.makeText(UploadActivity.this, cover_url, Toast.LENGTH_SHORT).show();
+                            dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).child("cover_url").setValue(uri.toString());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                             Log.d("URL", cover_url);
                         }
                     });
@@ -256,8 +267,17 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
                         public void onSuccess(Uri uri) {
                             song_url = uri.toString();
 
-                            map.put("song_url", uri.toString());
-                            tvURLAudio.setText(song_url);
+                            dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).child("song_url").setValue(uri.toString());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                             Log.d("URL", song_url);
                         }
                     });
@@ -292,12 +312,9 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
         name = etTitle.getText().toString();
         artist = etArtist.getText().toString();
 
-
         map.put("title", etTitle.getText().toString());
         map.put("artist", etArtist.getText().toString());
         map.put("genre", tvGenre.getText().toString());
-        map.put("song_url", tvURLAudio.getText().toString());
-        map.put("cover_url", tvURLCover.getText().toString());
 
         dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
