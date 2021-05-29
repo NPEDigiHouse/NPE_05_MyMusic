@@ -65,14 +65,13 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             btnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onItemClick.btnMoreClicked(getAdapterPosition());
+                    onItemClick.btnDeleteCLicked(getAdapterPosition());
                 }
             });
         }
     }
 
     public interface OnItemClick {
-        void btnMoreClicked(int position);
-        void itemClicked(int position);
+        void btnDeleteCLicked(int position);
     }
 }

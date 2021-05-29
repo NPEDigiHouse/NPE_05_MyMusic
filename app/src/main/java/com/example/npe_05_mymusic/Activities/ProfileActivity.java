@@ -116,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 .child("User")
                 .child(mUser.getUid())
                 .child("song_list");
-        mySongRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        mySongRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -148,12 +148,31 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void btnMoreClicked(int position) {
-        Toast.makeText(this, songList.get(position).getTitle() + " btn more clicked", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void itemClicked(int position) {
-
+    public void btnDeleteCLicked(int position) {
+        // get tim reference
+        DatabaseReference teamsRef = FirebaseDatabase.getInstance().getReference()
+                .child("User")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child("song_list");
+        teamsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int pos = 0;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    if (pos == position) {
+                        // delete value
+                        teamsRef.child(data.getKey()).removeValue();
+                    }
+                    pos++;
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProfileActivity.this, "Terjadi kesalahan pada database.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        Toast.makeText(this, "Tim berhasil dihapus", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(ProfileActivity.this, ProfileActivity.class));
+        finish();
     }
 }
