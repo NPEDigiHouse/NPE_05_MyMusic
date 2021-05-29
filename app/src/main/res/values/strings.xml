@@ -52,8 +52,8 @@
 
     <string name="u_tv1">Upload Lagu</string>
     <string name="pe_tv1">Perbaharui Lagu</string>
-    <string name="u_tv2">Pilih Lagu</string>
-    <string name="u_tv3">Add Cover Album</string>
+    <string name="u_tv2">Pilih Cover</string>
+    <string name="u_tv3">Tambahkan Lagu</string>
     <string name="u_tv4">Judul Lagu</string>
     <string name="u_tv5">Penyanyi Lagu</string>
     <string name="u_tv6">Genre Lagu</string>

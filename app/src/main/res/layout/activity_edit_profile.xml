@@ -45,6 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_profile"
                 android:layout_width="120dp"
@@ -80,6 +81,7 @@
                         android:textSize="16dp"/>
                 </LinearLayout>
                 <ImageView
+                    android:elevation="1dp"
                     android:id="@+id/iv_change_image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -110,6 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
+                    android:background="@android:color/transparent"
                     android:inputType="text"
                     android:textColor="@color/mBlackSmooth" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -139,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:inputType="text"
+                    android:background="@android:color/transparent"
                     android:textColor="@color/mBlackSmooth" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -170,10 +174,11 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:inputType="text"
+                    android:background="@android:color/transparent"
                     android:textColor="@color/mBlackSmooth" />
             </com.google.android.material.textfield.TextInputLayout>
             <Button
-                android:id="@+id/btn_masuk"
+                android:id="@+id/btn_simpan"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
