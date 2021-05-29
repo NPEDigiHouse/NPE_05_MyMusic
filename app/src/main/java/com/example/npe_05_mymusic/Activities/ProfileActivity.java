@@ -10,7 +10,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.widget.ImageButton;
+import android.widget.TextView;
 import com.example.npe_05_mymusic.Adapaters.SongsAdapter;
 import com.example.npe_05_mymusic.Models.songs.SongsModel;
 import com.example.npe_05_mymusic.R;
@@ -28,6 +29,7 @@ import java.util.List;
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener, SongsAdapter.OnItemClick {
 
     // auth
+    private DatabaseReference reference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
 
@@ -38,6 +40,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     // widgets
     private Button btnAdd;
+    private ImageButton btnBack;
+    private TextView tvEditProfile, tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +66,31 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         // initialize widgets
         btnAdd = findViewById(R.id.btn_add);
+        btnBack = findViewById(R.id.ib_back);
+        tvEditProfile = findViewById(R.id.tv_edit);
+
+        // Onclick Listner
         btnAdd.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        tvEditProfile.setOnClickListener(this);
+
+        //edit userName
+        tvName = (TextView) findViewById(R.id.tv_name);
+        reference = FirebaseDatabase.getInstance().getReference("User");
+        mAuth = FirebaseAuth.getInstance();
+        reference.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child("fullName").getValue(String.class);
+                tvName.setText(name);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
+
 
     @Override
     public void onClick(View v) {
@@ -72,6 +99,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 Intent i = new Intent(ProfileActivity.this, UploadActivity.class);
                 startActivity(i);
                 break;
+            case R.id.tv_edit:
+                Intent editProfileIntent = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                startActivity(editProfileIntent);
+                break;
+            case R.id.ib_back:
+                Intent back = new Intent(ProfileActivity.this, MainActivity.class);
+                startActivity(back);
+                break;
+
         }
     }
 

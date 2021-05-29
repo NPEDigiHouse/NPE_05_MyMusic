@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mAuth = FirebaseAuth.getInstance();
         bottomNavigationView = findViewById(R.id.bn_main);
         fragmentMap = new HashMap<>();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -44,11 +51,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             }
         };
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         mAuth.addAuthStateListener(mAuthStateListener);
         fragmentMap.put(R.id.menu_item_home, HomeFragment.newInstance());
         fragmentMap.put(R.id.menu_item_search, SearchFragment.newInstance());

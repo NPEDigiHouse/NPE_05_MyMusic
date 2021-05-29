@@ -227,6 +227,19 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
 
                                 }
                             });
+
+                            dbReference.child("Song_List").child(name + " - " + artist).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    dbReference.child("Song_List").child(name + " - " + artist).child("cover_url").setValue(uri.toString());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                             Log.d("URL", cover_url);
                         }
                     });
@@ -278,6 +291,19 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
 
                                 }
                             });
+
+                            dbReference.child("Song_List").child(name + " - " + artist).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    dbReference.child("Song_List").child(name + " - " + artist).child("song_url").setValue(uri.toString());
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
                             Log.d("URL", song_url);
                         }
                     });
@@ -319,7 +345,14 @@ public class UploadActivity extends AppCompatActivity implements AdapterView.OnI
         dbReference.child("User").child(mUser.getUid()).child("song_list").child(name + " - " + artist).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(UploadActivity.this, "Berhasil deploy ke DB", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UploadActivity.this, "Berhasil disimpan di library anda", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dbReference.child("Song_List").child(name + " - " + artist).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(UploadActivity.this, "Berhasil dipublish ke global", Toast.LENGTH_SHORT).show();
             }
         });
     }
