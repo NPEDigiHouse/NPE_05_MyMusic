@@ -100,10 +100,12 @@ public class RegisterActivity extends AppCompatActivity {
                                                 Toast.makeText(RegisterActivity.this, "success register", Toast.LENGTH_LONG).show();
                                                 etEmail.setText("");
                                                 etName.setText("");
-                                                etPassword.setText("");
-                                                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
-                                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(i);
+                                                etPassword.setTex
+
+                                                // go to main
+                                                Intent goToMain = new Intent(RegisterActivity.this, MainActivity.class);
+                                                startActivity(goToMain);
+                                                finishAffinity();
                                             }
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
